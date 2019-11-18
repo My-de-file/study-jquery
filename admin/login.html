@@ -37,6 +37,62 @@
       </form>
     </div>
   </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">登录提示</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(
+      $('.input_sub').click(function (e) {
+        // console.log(1);
+        e.preventDefault();
+
+        const userName = $('.input_txt').val();
+        const userPwd = $('.input_pass').val();
+        $('.btn-primary').click(function () {
+          $('#myModal').modal('hide');
+        })
+        if (userName == '' || userPwd == '') {
+          $('#myModal').modal('show');
+          $('.modal-body').text('今天你登录了吗？');
+          return;
+        }
+        $.ajax({
+          type: 'post',
+          url: 'http://localhost:8080/api/v1/admin/user/login',
+          data: {
+            username: userName,
+            password: userPwd
+          },
+          success: function (res) {
+            console.log(res);
+            $('#myModal').modal('show');
+            if (res.code == 200) {
+              $('.modal-body').text(res.msg);
+              $('#myModal').on('hidden.bs.modal', function (e) {
+                window.location = './index.html'
+              })
+              window.localStorage.setItem('token', res.token);
+            }
+            $('.modal-body').text(res.msg);
+          }
+        })
+      })
+
+    )
+
+
+  </script>
 
 </body>
 
