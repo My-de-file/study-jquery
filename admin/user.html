@@ -74,7 +74,6 @@
         $.get({
             url: window.BigNew.user_detail,
             success: function (res) {
-                console.log(res);
                 const input = $('input.form-control')
 
                 for (var key in res.data) {
@@ -103,7 +102,6 @@
                 contentType: false,
                 processData: false,
                 success: function (res) {
-                    console.log(res);
 
                     if (res.code == 200) {
 
