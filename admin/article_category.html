@@ -66,7 +66,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="myxiao">取消</button>
                     <button type="button" class="btn btn-primary" id="btn-confirm">确定</button>
                 </div>
             </div>
@@ -103,7 +103,9 @@
                     }
                 })
             }
-
+            $('#myxiao').on('click', function () {
+                $('#btn-confirm')[0].reset();
+            })
 
             $('#myModal').on('show.bs.modal', function (e) {
                 if (e.relatedTarget == $('#xinzengfenlei')[0]) {
@@ -188,7 +190,6 @@
                     })
                 }
             })
-
         })
 
     </script>
