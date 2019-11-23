@@ -232,45 +232,46 @@
             $('tbody').on('click', '.delete', function () {
                 // console.log($(this).attr('data-id'));
                 const arr = $(this).attr('data-id');
-                debugger;
-                $.post({
-                    url: window.BigNew.article_delete,
+                if (confirm('爱删不删')) {
+                    $.post({
+                        url: window.BigNew.article_delete,
 
-                    data: {
-                        id: arr
-                    },
-                    success: function (res) {
-                        console.log(res);
-                        if (res.code == 204) {
-
-                            confirm('爱删不删')
-                            $('#pagination-demo').twbsPagination({
-                                onPageClick: function (event, page) {
-                                    page = page,
-                                        console.log(page);
-                                }
-                            })
-                            $.get({
-                                url: window.BigNew.article_query,
-                                data: {
-                                    page: page,
-                                    type: $('#selCategory').val(),
-                                    state: $('#selStatus').val(),
-                                    perpage: 10,
-                                },
-                                success: function (res) {
-                                    console.log(res);
-                                    const htmlText = template('data', res);
-                                    $('tbody').html(htmlText);
-                                }
+                        data: {
+                            id: arr
+                        },
+                        success: function (res) {
+                            console.log(res);
+                            if (res.code == 204) {
 
 
-                            })
+                                $('#pagination-demo').twbsPagination({
+                                    onPageClick: function (event, page) {
+                                        page = page,
+                                            console.log(page);
+                                    }
+                                })
+                                $.get({
+                                    url: window.BigNew.article_query,
+                                    data: {
+                                        page: page,
+                                        type: $('#selCategory').val(),
+                                        state: $('#selStatus').val(),
+                                        perpage: 10,
+                                    },
+                                    success: function (res) {
+                                        console.log(res);
+                                        const htmlText = template('data', res);
+                                        $('tbody').html(htmlText);
+                                    }
+
+
+                                })
+                            }
+
                         }
 
-                    }
-
-                })
+                    })
+                }
 
             })
         })
